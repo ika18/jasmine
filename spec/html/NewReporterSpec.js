@@ -116,7 +116,7 @@ describe("New HtmlReporter", function() {
       reporter.initialize();
 
       fakeNow.andReturn(500);
-      reporter.jasmineStarted();
+      reporter.jasmineStarted({});
       fakeNow.andReturn(600);
       reporter.jasmineDone();
 
@@ -139,7 +139,7 @@ describe("New HtmlReporter", function() {
         });
         reporter.initialize();
 
-        reporter.jasmineStarted();
+        reporter.jasmineStarted({});
         reporter.specDone({
           id: 123,
           description: "with a spec",
@@ -185,7 +185,7 @@ describe("New HtmlReporter", function() {
         });
         reporter.initialize();
 
-        reporter.jasmineStarted();
+        reporter.jasmineStarted({});
         reporter.specDone({id: 123, status: "passed"});
         reporter.specDone({
           id: 124,
@@ -247,7 +247,7 @@ describe("New HtmlReporter", function() {
         });
       reporter.initialize();
 
-      reporter.jasmineStarted();
+      reporter.jasmineStarted({});
       reporter.suiteStarted({
         id: 1,
         description: "A Suite",
@@ -325,7 +325,7 @@ describe("New HtmlReporter", function() {
 
   describe("specFilter", function() {
 
-    it("should return true if there is no filter", function() {
+    it("always returns true if there is no filter", function() {
       var env = new jasmine.Env(),
         body = document.createElement("body"),
         fakeDocument = {
@@ -346,8 +346,7 @@ describe("New HtmlReporter", function() {
       expect(reporter.specFilter(fakeSpec)).toBe(true);
     });
 
-
-    it("should match a focused spec name", function() {
+    it("matches a focused spec name", function() {
       var env = new jasmine.Env(),
         body = document.createElement("body"),
         fakeDocument = {
@@ -372,7 +371,7 @@ describe("New HtmlReporter", function() {
       expect(reporter.specFilter(fakeNonMatchingSpec)).toBe(false);
     });
 
-    it("should match a substring of a spec name", function() {
+    it("matches a substring of a spec name", function() {
       var env = new jasmine.Env(),
         body = document.createElement("body"),
         fakeDocument = {
@@ -398,6 +397,46 @@ describe("New HtmlReporter", function() {
     });
   });
 
+  describe("when specs are filtered", function() {
+
+    it("shows the count of run specs and defined specs", function() {
+      var env = new jasmine.Env(),
+        body = document.createElement("body"),
+        fakeDocument = {
+          body: body
+        },
+        reporter = new jasmine.NewReporter({
+          env: env,
+          document: fakeDocument
+        });
+
+      reporter.initialize();
+
+      reporter.jasmineStarted({
+        totalSpecsDefined: 2
+      });
+      reporter.specDone({
+        id: 123,
+        description: "with a spec",
+        fullName: "A Suite with a spec",
+        status: "passed"
+      });
+      reporter.specDone({
+        id: 124,
+        description: "with another spec",
+        fullName: "A Suite inner suite with another spec",
+        status: "disabled"
+      });
+      reporter.jasmineDone();
+
+      var skippedBar = body.getElementsByClassName("bar")[0];
+      expect(skippedBar.getAttribute("class")).toMatch(/skipped/);
+
+      var runAllLink = skippedBar.childNodes[0];
+      expect(runAllLink.getAttribute("href")).toEqual("/");
+      expect(runAllLink.text).toMatch(/Ran \d+ of \d+ specs - run all/);
+    });
+  });
 
   // passing in the try/catch
 

@@ -7,8 +7,9 @@ jasmine.NewReporter = function(options) {
     },
     results = [],
     startTime,
-    specCount = 0,
-    failureCount = 0;
+    specsExecuted = 0,
+    failureCount = 0,
+    symbols;
 
   this.initialize = function() {
     doc.body.appendChild(createDom("div", {className: "html-reporter"},
@@ -22,6 +23,8 @@ jasmine.NewReporter = function(options) {
         createDom("div", {className: "failures"})
       )
     ));
+
+    symbols = doc.body.getElementsByClassName("symbol-summary")[0];
   };
 
   var specFilterParam, specFilterPattern;
@@ -36,7 +39,9 @@ jasmine.NewReporter = function(options) {
     return !!(specName.match(specFilterPattern));
   };
 
-  this.jasmineStarted = function() {
+  var totalSpecsDefined;
+  this.jasmineStarted = function(options) {
+    totalSpecsDefined = options.totalSpecsDefined || 0;
     startTime = now();
   };
 
@@ -85,9 +90,10 @@ jasmine.NewReporter = function(options) {
   var failures = [];
 
   this.specDone = function(result) {
-    specCount++;
+    if (result.status != "disabled") {
+      specsExecuted++;
+    }
 
-    var symbols = doc.body.getElementsByClassName("symbol-summary")[0];
     symbols.appendChild(createDom("li", {
         className: result.status,
         id: "spec_" + result.id}
@@ -129,12 +135,19 @@ jasmine.NewReporter = function(options) {
     var banner = doc.body.getElementsByClassName("banner")[0];
     banner.appendChild(createDom("span", {className: "duration"}, "finished in " + elapsed / 1000 + "s"));
 
-    var alert = doc.body.getElementsByClassName("alert")[0],
-      barMessage = "" + pluralize("spec", specCount) + ", " + pluralize("failure", failureCount),
-      className = "bar ";
+    var alert = doc.body.getElementsByClassName("alert")[0];
 
-    className += ((failureCount > 0) ? "failed" : "passed");
-    alert.appendChild(createDom("span", {className: className}, barMessage));
+    if (specsExecuted < totalSpecsDefined) {
+      var skippedMessage = "Ran " + specsExecuted + " of " + totalSpecsDefined + " specs - run all";
+      alert.appendChild(
+        createDom("span", {className: "bar skipped"},
+          createDom("a", {href: "/", title: "Run all specs"},  skippedMessage)
+        )
+      );
+    }
+    var statusBarMessage = "" + pluralize("spec", specsExecuted) + ", " + pluralize("failure", failureCount),
+      statusBarClassName = "bar " + ((failureCount > 0) ? "failed" : "passed");
+    alert.appendChild(createDom("span", {className: statusBarClassName}, statusBarMessage));
 
     var results = doc.body.getElementsByClassName("results")[0];
     results.appendChild(summary);

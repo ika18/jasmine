@@ -3,7 +3,7 @@
 $line-height: 14px;
 $margin-unit: 14px;
 
-$feint-text-color: #aaa;
+$faint-text-color: #aaa;
 $light-text-color: #666;
 $text-color: #333;
 
@@ -71,7 +71,7 @@ body {
   }
 
   .version {
-    color: $feint-text-color;
+    color: $faint-text-color;
   }
 
   //--- Banner ---//
@@ -81,7 +81,7 @@ body {
   }
 
   .duration {
-    color: $feint-text-color;
+    color: $faint-text-color;
     float: right;
   }
 
@@ -133,7 +133,7 @@ body {
         line-height: ($line-height / 2) + 4;
 
         &:before {
-          color: $feint-text-color;
+          color: $faint-text-color;
           content: "-";
         }
       }
@@ -147,7 +147,7 @@ body {
     margin-right: 5px;
   }
 
-  //--- Alert ---//
+  //--- Alerts: status bars ---//
 
   .bar {
     line-height: $line-height * 2;
@@ -157,36 +157,25 @@ body {
     color: #eee;
 
     &.failed {
-      background-color: $light-failing-color;
-
-      &:first-child {
-        background-color: $failing-color
-      }
+      background-color: $failing-color
     }
 
     &.passed {
       background-color: $light-passing-color;
+    }
+
+    &.skipped {
+      background-color: $neutral-color;
+    }
+
+    a {
+      color: white;
     }
   }
 
   .running-alert {
     background-color: $light-text-color;
   }
-
-  .skipped-alert {
-    background-color: $feint-text-color;
-
-    &:first-child {
-      background-color: $text-color;
-    }
-
-    &:hover {
-      text-decoration: none;
-      color: white;
-      text-decoration: underline;
-    }
-  }
-
 
   //--- Results ---//
 

@@ -22,13 +22,11 @@ body { background-color: #eeeeee; padding: 0; margin: 5px; overflow-y: scroll; }
 .html-reporter .symbol-summary li.pending:before { color: #aaaaaa; content: "-"; }
 .html-reporter .exceptions { color: #fff; float: right; margin-top: 5px; margin-right: 5px; }
 .html-reporter .bar { line-height: 28px; font-size: 14px; display: block; color: #eee; }
-.html-reporter .bar.failed { background-color: #cf867e; }
-.html-reporter .bar.failed:first-child { background-color: #b03911; }
+.html-reporter .bar.failed { background-color: #b03911; }
 .html-reporter .bar.passed { background-color: #a6b779; }
+.html-reporter .bar.skipped { background-color: #bababa; }
+.html-reporter .bar a { color: white; }
 .html-reporter .running-alert { background-color: #666666; }
-.html-reporter .skipped-alert { background-color: #aaaaaa; }
-.html-reporter .skipped-alert:first-child { background-color: #333333; }
-.html-reporter .skipped-alert:hover { text-decoration: none; color: white; text-decoration: underline; }
 .html-reporter .results { margin-top: 14px; }
 .html-reporter .resultsMenu, .html-reporter .resultsMenu a { background-color: #fff; color: #333333; }
 .html-reporter.showDetails .summaryMenuItem { font-weight: normal; text-decoration: inherit; }

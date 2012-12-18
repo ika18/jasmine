@@ -433,7 +433,7 @@ describe("New HtmlReporter", function() {
       expect(skippedBar.getAttribute("class")).toMatch(/skipped/);
 
       var runAllLink = skippedBar.childNodes[0];
-      expect(runAllLink.getAttribute("href")).toEqual("/");
+      expect(runAllLink.getAttribute("href")).toEqual("?");
       expect(runAllLink.text).toMatch(/Ran \d+ of \d+ specs - run all/);
     });
   });

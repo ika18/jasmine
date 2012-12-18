@@ -141,7 +141,7 @@ jasmine.NewReporter = function(options) {
       var skippedMessage = "Ran " + specsExecuted + " of " + totalSpecsDefined + " specs - run all";
       alert.appendChild(
         createDom("span", {className: "bar skipped"},
-          createDom("a", {href: "/", title: "Run all specs"},  skippedMessage)
+          createDom("a", {href: "?", title: "Run all specs"},  skippedMessage)
         )
       );
     }

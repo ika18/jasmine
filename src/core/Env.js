@@ -140,6 +140,7 @@
         self.removeAllSpies();
         self.clock.uninstall();
         self.currentSpec = null;
+        self.reporter.specDone(result);
       }
     };
 

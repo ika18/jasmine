@@ -200,7 +200,6 @@ jasmine.NewReporter = function(options) {
   }
 
   function isFiltered() {
-    debugger;
     buildSpecFilter();
 
     return !!specFilterParam;

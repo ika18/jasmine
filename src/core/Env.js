@@ -84,6 +84,7 @@
       return buildExpectationResult(attrs);
     };
 
+    // TODO: fix this naming, and here's where the value comes in
     this.catchExceptions = function(value) {
       return catchExceptions = !!value;
     };

@@ -168,8 +168,32 @@ body {
       background-color: $neutral-color;
     }
 
+    &.menu {
+      background-color: #fff;
+      color: $faint-text-color;
+
+      a {
+        color: $text-color;
+      }
+    }
+
     a {
       color: white;
+    }
+  }
+
+  // simplify toggle control between the two menu bars
+  &.spec-list {
+    .bar.menu.failure-list,
+    .results .failures {
+      display: none;
+    }
+  }
+
+  &.failure-list {
+    .bar.menu.spec-list,
+    .summary {
+      display: none;
     }
   }
 
@@ -184,16 +208,6 @@ body {
   }
 
   //--- Results menu ---//
-
-  .failures {
-    //display: none;
-  }
-
-  .resultsMenu,
-  .resultsMenu a {
-    background-color: #fff;
-    color: $text-color;
-  }
 
   &.showDetails {
 

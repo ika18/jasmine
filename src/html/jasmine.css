@@ -25,10 +25,13 @@ body { background-color: #eeeeee; padding: 0; margin: 5px; overflow-y: scroll; }
 .html-reporter .bar.failed { background-color: #b03911; }
 .html-reporter .bar.passed { background-color: #a6b779; }
 .html-reporter .bar.skipped { background-color: #bababa; }
+.html-reporter .bar.menu { background-color: #fff; color: #aaaaaa; }
+.html-reporter .bar.menu a { color: #333333; }
 .html-reporter .bar a { color: white; }
+.html-reporter.spec-list .bar.menu.failure-list, .html-reporter.spec-list .results .failures { display: none; }
+.html-reporter.failure-list .bar.menu.spec-list, .html-reporter.failure-list .summary { display: none; }
 .html-reporter .running-alert { background-color: #666666; }
 .html-reporter .results { margin-top: 14px; }
-.html-reporter .resultsMenu, .html-reporter .resultsMenu a { background-color: #fff; color: #333333; }
 .html-reporter.showDetails .summaryMenuItem { font-weight: normal; text-decoration: inherit; }
 .html-reporter.showDetails .summaryMenuItem:hover { text-decoration: underline; }
 .html-reporter.showDetails .detailsMenuItem { font-weight: bold; text-decoration: underline; }

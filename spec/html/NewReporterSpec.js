@@ -173,6 +173,7 @@ describe("New HtmlReporter", function() {
 
     describe("and some tests fail", function() {
       var env, body, fakeDocument, reporter;
+
       beforeEach(function() {
         env = new jasmine.Env();
         body = document.createElement("body");
@@ -208,7 +209,6 @@ describe("New HtmlReporter", function() {
         var alert = body.getElementsByClassName("alert")[0];
         var alertBars = alert.getElementsByClassName("bar");
 
-        expect(alertBars.length).toEqual(1);
         expect(alertBars[0].getAttribute('class')).toMatch(/failed/);
         expect(alertBars[0].innerHTML).toMatch(/2 specs, 1 failure/);
       });
@@ -232,6 +232,21 @@ describe("New HtmlReporter", function() {
         var stackTrace = failure.childNodes[1].childNodes[1];
         expect(stackTrace.getAttribute("class")).toEqual("stack-trace");
         expect(stackTrace.innerHTML).toEqual("a stack trace");
+      });
+
+      it("allows switching between failure details and the spec summary", function() {
+        var menuBar = body.getElementsByClassName("bar")[1];
+
+        expect(menuBar.getAttribute("class")).not.toMatch(/hidden/);
+
+        var link = menuBar.getElementsByTagName('a')[0];
+        expect(link.text).toEqual("Failures");
+        expect(link.getAttribute("href")).toEqual("#");
+      });
+
+      it("sets the reporter to 'Failures List' mode" , function() {
+        var reporterNode = body.getElementsByClassName("html-reporter")[0];
+        expect(reporterNode.getAttribute("class")).toMatch("failure-list");
       });
     });
 
@@ -398,7 +413,6 @@ describe("New HtmlReporter", function() {
   });
 
   describe("when specs are filtered", function() {
-
     it("shows the count of run specs and defined specs", function() {
       var env = new jasmine.Env(),
         body = document.createElement("body"),

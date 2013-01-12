@@ -18,7 +18,9 @@ class JasmineDev < Thor
     ],
 
     :html => [
-      "NewReporter.js"
+      "HtmlReporter.js",
+      "ResultsNode.js",
+      "QueryString.js"
     ]
   }
 end

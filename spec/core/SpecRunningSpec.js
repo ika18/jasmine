@@ -290,5 +290,4 @@ describe("jasmine spec running", function () {
     ));
 
   });
-
 });
